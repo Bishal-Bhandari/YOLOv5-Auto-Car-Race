@@ -1,6 +1,5 @@
 import pygame
 import random
-import os
 from pygame.locals import *
 
 # variables
@@ -13,6 +12,9 @@ speed = 1
 
 # game init and setup
 pygame.init()
+
+FONT = pygame.font.SysFont('arial', 20)
+
 running = True
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("YOLO Car Run")
@@ -40,12 +42,23 @@ def car2load():
     return opp2
 
 
+def statistics():
+    global speed, score
+    text_1 = FONT.render(f'Speed:  {str(speed)}', True, (0, 0, 0))
+    text_2 = FONT.render(f'Score:  {score}', True, (0, 0, 0))
+    text_3 = FONT.render(f'Race YOLOv5', True, (0, 100, 0))
+
+    screen.blit(text_1, (50, 50))
+    screen.blit(text_2, (300, 50))
+    screen.blit(text_3, (750, 50))
+
+
 car2 = pygame.image.load("asset/police.png")
 car2_loc = car2.get_rect()
 car2_loc.center = left_lane, height * 0.2
 
 counter = 0
-count_val = 700
+score = 0
 # run the game with events
 while running:
     counter += 1
@@ -97,7 +110,8 @@ while running:
     if randcar > height:
         opp_vec1 = car2load()
         car2 = opp_vec1
-
+        score += 1
+    statistics()
     pygame.display.update()
 
 pygame.quit()
