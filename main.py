@@ -1,6 +1,8 @@
+from tkinter import messagebox
 import pygame
 import random
 from pygame.locals import *
+import popup
 
 # variables
 size = width, height = (1200, 700)
@@ -90,8 +92,7 @@ while running:
 
     # collapse
     if car_loc[0] == car2_loc[0] and car2_loc[1] > car_loc[1] - 250:
-        print("Game Over!!!")
-        break
+        popup.askMe()
 
     # event handler
     for event in pygame.event.get():
