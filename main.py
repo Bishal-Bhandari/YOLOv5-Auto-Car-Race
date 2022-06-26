@@ -90,10 +90,6 @@ while running:
         else:
             car2_loc.center = left_lane, -200
 
-    # collapse
-    if car_loc[0] == car2_loc[0] and car2_loc[1] > car_loc[1] - 250:
-        popup.askMe()
-
     # event handler
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -103,6 +99,9 @@ while running:
                 car_loc = car_loc.move([-int(road_w / 2), 0])
             if event.key in [K_d, K_RIGHT]:
                 car_loc = car_loc.move([int(road_w / 2), 0])
+    # collapse
+    if car_loc[0] == car2_loc[0] and car2_loc[1] > car_loc[1] - 250:
+        popup.askMe()
 
     display_set()
 
