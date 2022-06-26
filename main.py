@@ -16,15 +16,16 @@ pygame.init()
 FONT = pygame.font.SysFont('arial', 20)
 
 running = True
-screen = pygame.display.set_mode(size)
-pygame.display.set_caption("YOLO Car Run")
-screen.fill((60, 220, 0))
 
-pygame.display.update()
+
+def background():
+    global screen
+    screen = pygame.display.set_mode(size)
+    pygame.display.set_caption("YOLO Car Run")
+    screen.fill((60, 220, 0))
+
 
 # loading asset
-# opponent_car = random.choice(os.listdir("D:\Project\YOLOgame\\asset\opp"))
-
 car = pygame.image.load("asset/player.png")
 car_loc = car.get_rect()
 car_loc.center = right_lane, height * 0.8
@@ -42,15 +43,15 @@ def car2load():
     return opp2
 
 
-def statistics():
+def details():
     global speed, score
     text_1 = FONT.render(f'Speed:  {str(speed)}', True, (0, 0, 0))
     text_2 = FONT.render(f'Score:  {score}', True, (0, 0, 0))
-    text_3 = FONT.render(f'Race YOLOv5', True, (0, 100, 0))
+    text_3 = FONT.render(f'Race YOLOv5', True, (0, 0, 0))
 
     screen.blit(text_1, (50, 50))
-    screen.blit(text_2, (300, 50))
-    screen.blit(text_3, (750, 50))
+    screen.blit(text_2, (50, 150))
+    screen.blit(text_3, (50, 250))
 
 
 car2 = pygame.image.load("asset/police.png")
@@ -61,6 +62,8 @@ counter = 0
 score = 0
 # run the game with events
 while running:
+    background()
+    details()
     counter += 1
 
     if counter == 1024:
@@ -71,6 +74,7 @@ while running:
     # opposite car logic
     car2_loc[1] += speed
     if car2_loc[1] > height:
+        score += 1
         if random.randint(0, 1) == 0:
             car2_loc.center = right_lane, -200
         else:
@@ -110,8 +114,7 @@ while running:
     if randcar > height:
         opp_vec1 = car2load()
         car2 = opp_vec1
-        score += 1
-    statistics()
+
     pygame.display.update()
 
 pygame.quit()
