@@ -10,9 +10,10 @@ road_w = int(width / 1.5)
 roadmark_w = int(width / 90)
 right_lane = width / 2 + road_w / 4
 left_lane = width / 2 - road_w / 4 + 1
-speed = 1
+speed = 2
 divider = [-720, -600, -480, -360, -240, -120, 0, 120, 240, 360, 480, 600, 720]
-divider_new = divider.copy()
+
+
 # game init and setup
 pygame.init()
 
@@ -64,14 +65,15 @@ def details():
 def display_set():
     # setting up the display
     pygame.draw.rect(screen, (50, 50, 50), (width / 2 - road_w / 2, 0, road_w, height))
-    pygame.draw.rect(screen, (255, 255, 255), (width / 2 - road_w / 2 + roadmark_w * 1, 0, roadmark_w, height))
-    pygame.draw.rect(screen, (255, 255, 255), (width / 2 + road_w / 2 - roadmark_w * 2, 0, roadmark_w, height))
+    # pygame.draw.rect(screen, (255, 255, 255), (width / 2 - road_w / 2 + roadmark_w * 1, 0, roadmark_w, height))
+    # pygame.draw.rect(screen, (255, 255, 255), (width / 2 + road_w / 2 - roadmark_w * 2, 0, roadmark_w, height))
 
 
 def divider_fun(val):
     for i in range(len(divider)):
         pygame.draw.rect(screen, (255, 255, 255), (width / 2 - roadmark_w / 2, divider[i] + val, roadmark_w, 60))
-        x = divider[i] + val
+        pygame.draw.rect(screen, (255, 255, 255), (width / 2 - road_w / 2 + roadmark_w * 1, divider[i] + val, roadmark_w, 60))
+        pygame.draw.rect(screen, (255, 255, 255), (width / 2 + road_w / 2 - roadmark_w * 2, divider[i] + val, roadmark_w, 60))
 
 
 counter = 0
