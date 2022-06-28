@@ -1,21 +1,20 @@
-from tkinter import messagebox
 import pygame
 import random
 from pygame.locals import *
 import popup
 
 # variables
-size = width, height = (1200, 700)
+size = width, height = (800, 800)
 road_w = int(width / 1.5)
 roadmark_w = int(width / 90)
 right_lane = width / 2 + road_w / 4
-left_lane = width / 2 - road_w / 4
+left_lane = width / 2 - road_w / 4  + 1
 speed = 1
 
 # game init and setup
 pygame.init()
 
-FONT = pygame.font.SysFont('arial', 20)
+FONT = pygame.font.SysFont('freesansbold', 25)
 
 running = True
 
@@ -31,6 +30,10 @@ def background():
 car = pygame.image.load("asset/player.png")
 car_loc = car.get_rect()
 car_loc.center = right_lane, height * 0.8
+
+car2 = pygame.image.load("asset/police.png")
+car2_loc = car2.get_rect()
+car2_loc.center = left_lane, height * 0.2
 
 
 def randomizeFun():
@@ -49,11 +52,11 @@ def details():
     global speed, score
     text_1 = FONT.render(f'Speed:  {str(speed)}', True, (0, 0, 0))
     text_2 = FONT.render(f'Score:  {score}', True, (0, 0, 0))
-    text_3 = FONT.render(f'Race YOLOv5', True, (0, 0, 0))
+    text_3 = FONT.render(f'Race YOLOv5', True, (255, 0, 0))
 
-    screen.blit(text_1, (50, 50))
-    screen.blit(text_2, (50, 150))
-    screen.blit(text_3, (50, 250))
+    screen.blit(text_1, (10, 250))
+    screen.blit(text_2, (10, 150))
+    screen.blit(text_3, (10, 50))
 
 
 def display_set():
@@ -63,10 +66,6 @@ def display_set():
     pygame.draw.rect(screen, (255, 255, 255), (width / 2 - road_w / 2 + roadmark_w * 1, 0, roadmark_w, height))
     pygame.draw.rect(screen, (255, 255, 255), (width / 2 + road_w / 2 - roadmark_w * 2, 0, roadmark_w, height))
 
-
-car2 = pygame.image.load("asset/police.png")
-car2_loc = car2.get_rect()
-car2_loc.center = left_lane, height * 0.2
 
 counter = 0
 score = 0
@@ -95,10 +94,11 @@ while running:
         if event.type == QUIT:
             running = False
         if event.type == KEYDOWN:
-            if event.key in [K_a, K_LEFT]:
+            if event.key in [K_a, K_LEFT] and car_loc[0] > 142:
                 car_loc = car_loc.move([-int(road_w / 2), 0])
-            if event.key in [K_d, K_RIGHT]:
+            if event.key in [K_d, K_RIGHT] and car_loc[0] < 408:
                 car_loc = car_loc.move([int(road_w / 2), 0])
+
     # collapse
     if car_loc[0] == car2_loc[0] and car2_loc[1] > car_loc[1] - 250:
         popup.askMe()
