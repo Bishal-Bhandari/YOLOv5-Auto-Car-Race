@@ -1,3 +1,4 @@
+import time
 import pygame
 import random
 from pygame.locals import *
@@ -8,9 +9,10 @@ size = width, height = (800, 800)
 road_w = int(width / 1.5)
 roadmark_w = int(width / 90)
 right_lane = width / 2 + road_w / 4
-left_lane = width / 2 - road_w / 4  + 1
+left_lane = width / 2 - road_w / 4 + 1
 speed = 1
-
+divider = [-720, -600, -480, -360, -240, -120, 0, 120, 240, 360, 480, 600, 720]
+divider_new = divider.copy()
 # game init and setup
 pygame.init()
 
@@ -62,13 +64,19 @@ def details():
 def display_set():
     # setting up the display
     pygame.draw.rect(screen, (50, 50, 50), (width / 2 - road_w / 2, 0, road_w, height))
-    pygame.draw.rect(screen, (255, 240, 60), (width / 2 - roadmark_w / 2, 0, roadmark_w, height))
     pygame.draw.rect(screen, (255, 255, 255), (width / 2 - road_w / 2 + roadmark_w * 1, 0, roadmark_w, height))
     pygame.draw.rect(screen, (255, 255, 255), (width / 2 + road_w / 2 - roadmark_w * 2, 0, roadmark_w, height))
 
 
+def divider_fun(val):
+    for i in range(len(divider)):
+        pygame.draw.rect(screen, (255, 255, 255), (width / 2 - roadmark_w / 2, divider[i] + val, roadmark_w, 60))
+        x = divider[i] + val
+
+
 counter = 0
 score = 0
+div_move = 0
 # run the game with events
 while running:
     background()
@@ -105,6 +113,16 @@ while running:
 
     display_set()
 
+    # for divider in mid UI
+    if counter == 1024:
+        div_move += 1.25
+    else:
+        div_move += 1
+    divider_fun(div_move)
+    if div_move == 800:
+        div_move = 1
+    print(div_move)
+
     # display block
     screen.blit(car, car_loc)
     screen.blit(car2, car2_loc)
@@ -112,8 +130,8 @@ while running:
     # for random car
     a = 2
     a *= 1.5
-    randcar = car2_loc[1] + a
-    if randcar > height:
+    rand_car = car2_loc[1] + a
+    if rand_car > height:
         opp_vec1 = car2load()
         car2 = opp_vec1
 
