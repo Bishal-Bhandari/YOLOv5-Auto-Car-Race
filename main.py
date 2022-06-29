@@ -1,9 +1,11 @@
 import cv2
-import numpy
+import numpy as np
 import pygame
 import random
+import torch
 from pygame.locals import *
 import popup
+import DataFeedCap
 
 # variables
 size = width, height = (800, 800)
@@ -14,11 +16,13 @@ left_lane = width / 2 - road_w / 4 + 1
 speed = 2
 divider = [-720, -600, -480, -360, -240, -120, 0, 120, 240, 360, 480, 600, 720]
 
+# load model
+model = torch.hub.load('ultralytics/yolov5', 'custom', 'yolov5\\runs\\train\\exp6\\weights\\last.pt', force_reload=True)
+
 # game init and setup
 pygame.init()
 
 FONT = pygame.font.SysFont('freesansbold', 25)
-
 running = True
 
 
@@ -76,9 +80,6 @@ def divider_fun(val):
                          (width / 2 - road_w / 2 + roadmark_w * 1, divider[i] + val, roadmark_w, 60))
         pygame.draw.rect(screen, (255, 255, 255),
                          (width / 2 + road_w / 2 - roadmark_w * 2, divider[i] + val, roadmark_w, 60))
-
-
-
 
 
 counter = 0
@@ -140,9 +141,19 @@ while running:
         opp_vec1 = car2load()
         car2 = opp_vec1
 
+    #  Capture screen for detection
+    screen_grab = DataFeedCap.capture_dynamic()
+    # frame = screen_grab.read()
+    result = model(screen_grab)
+    if screen_grab is None:
+        print("No Window Found! Please Try Again")
+        continue
+    screen_grab = np.array(screen_grab)
+    cv2.imshow('YOLO', np.squeeze(result.render()))
 
-
-
+    if cv2.waitKey(25) & 0xFF == ord('q'):
+        cv2.destroyAllWindows()
+        break
 
     pygame.display.update()
 
