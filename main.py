@@ -13,7 +13,6 @@ left_lane = width / 2 - road_w / 4 + 1
 speed = 2
 divider = [-720, -600, -480, -360, -240, -120, 0, 120, 240, 360, 480, 600, 720]
 
-
 # game init and setup
 pygame.init()
 
@@ -72,8 +71,10 @@ def display_set():
 def divider_fun(val):
     for i in range(len(divider)):
         pygame.draw.rect(screen, (255, 255, 255), (width / 2 - roadmark_w / 2, divider[i] + val, roadmark_w, 60))
-        pygame.draw.rect(screen, (255, 255, 255), (width / 2 - road_w / 2 + roadmark_w * 1, divider[i] + val, roadmark_w, 60))
-        pygame.draw.rect(screen, (255, 255, 255), (width / 2 + road_w / 2 - roadmark_w * 2, divider[i] + val, roadmark_w, 60))
+        pygame.draw.rect(screen, (255, 255, 255),
+                         (width / 2 - road_w / 2 + roadmark_w * 1, divider[i] + val, roadmark_w, 60))
+        pygame.draw.rect(screen, (255, 255, 255),
+                         (width / 2 + road_w / 2 - roadmark_w * 2, divider[i] + val, roadmark_w, 60))
 
 
 counter = 0
@@ -88,7 +89,6 @@ while running:
     if counter == 1024:
         speed += 0.25
         counter = 0
-        print("Level up", speed)
 
     # opposite car logic
     car2_loc[1] += speed
@@ -123,7 +123,6 @@ while running:
     divider_fun(div_move)
     if div_move == 800:
         div_move = 1
-    print(div_move)
 
     # display block
     screen.blit(car, car_loc)
@@ -140,3 +139,7 @@ while running:
     pygame.display.update()
 
 pygame.quit()
+
+# Train YOLOv5s on COCO128 for 3 epochs
+# python train.py --img 640 --batch 10 --epochs 50 --data datasrc.yaml --weights yolov5s6.pt --cache
+# python detect.py --weights D:\Project\YOLOgame\yolov5\runs\train\exp6\weights\last.pt --img 640 --conf 0.25 --source image-path
