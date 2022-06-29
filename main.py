@@ -1,4 +1,5 @@
-import time
+import cv2
+import numpy
 import pygame
 import random
 from pygame.locals import *
@@ -77,6 +78,9 @@ def divider_fun(val):
                          (width / 2 + road_w / 2 - roadmark_w * 2, divider[i] + val, roadmark_w, 60))
 
 
+
+
+
 counter = 0
 score = 0
 div_move = 0
@@ -135,6 +139,10 @@ while running:
     if rand_car > height:
         opp_vec1 = car2load()
         car2 = opp_vec1
+
+
+
+
 
     pygame.display.update()
 
