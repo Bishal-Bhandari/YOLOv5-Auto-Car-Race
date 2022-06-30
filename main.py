@@ -1,3 +1,5 @@
+import os
+
 import cv2
 import numpy as np
 import pygame
@@ -69,8 +71,6 @@ def details():
 def display_set():
     # setting up the display
     pygame.draw.rect(screen, (50, 50, 50), (width / 2 - road_w / 2, 0, road_w, height))
-    # pygame.draw.rect(screen, (255, 255, 255), (width / 2 - road_w / 2 + roadmark_w * 1, 0, roadmark_w, height))
-    # pygame.draw.rect(screen, (255, 255, 255), (width / 2 + road_w / 2 - roadmark_w * 2, 0, roadmark_w, height))
 
 
 def divider_fun(val):
@@ -85,6 +85,7 @@ def divider_fun(val):
 counter = 0
 score = 0
 div_move = 0
+frame_count = 0
 # run the game with events
 while running:
     background()
@@ -141,16 +142,19 @@ while running:
         opp_vec1 = car2load()
         car2 = opp_vec1
 
+    # take screenshot of frame
+    # frame_count += 1
+    # filename = "FeedData/screen_%04d.png" % frame_count
+    # pygame.image.save(screen, filename)
+
     #  Capture screen for detection
     screen_grab = DataFeedCap.capture_dynamic()
-    # frame = screen_grab.read()
+
     result = model(screen_grab)
     if screen_grab is None:
         print("No Window Found! Please Try Again")
         continue
-    screen_grab = np.array(screen_grab)
     cv2.imshow('YOLO', np.squeeze(result.render()))
-
     if cv2.waitKey(25) & 0xFF == ord('q'):
         cv2.destroyAllWindows()
         break

@@ -1,5 +1,3 @@
-import cv2
-import numpy as np
 from PIL import ImageGrab
 import win32gui
 
@@ -11,16 +9,16 @@ def capture_dynamic():
         winlist.append((hwnd, win32gui.GetWindowText(hwnd)))
 
     win32gui.EnumWindows(enum_cb, toplist)
-
     wnd = [(hwnd, title) for hwnd, title in winlist if 'yolo car run' in title.lower()]
-
     if wnd:
         wnd = wnd[0]
         hwnd = wnd[0]
-
         bbox = win32gui.GetWindowRect(hwnd)
-        img = ImageGrab.grab(bbox)
-        return img
+        bbox1 = (bbox[0] + 190, bbox[1], bbox[2] + 400, bbox[3] + 200)
+        img = ImageGrab.grab(bbox1)
+        newsize = (500, 700)
+        im1 = img.resize(newsize)
+        return im1
     else:
         return None
 
