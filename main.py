@@ -142,15 +142,10 @@ while running:
         opp_vec1 = car2load()
         car2 = opp_vec1
 
-    # take screenshot of frame
-    # frame_count += 1
-    # filename = "FeedData/screen_%04d.png" % frame_count
-    # pygame.image.save(screen, filename)
-
     #  Capture screen for detection
     screen_grab = DataFeedCap.capture_dynamic()
-
     result = model(screen_grab)
+    print(result)
     if screen_grab is None:
         print("No Window Found! Please Try Again")
         continue
