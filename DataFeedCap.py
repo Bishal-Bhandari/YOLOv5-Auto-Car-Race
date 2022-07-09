@@ -16,7 +16,7 @@ def capture_dynamic():
         bbox = win32gui.GetWindowRect(hwnd)
         bbox1 = (bbox[0] + 190, bbox[1], bbox[2] + 400, bbox[3] + 200)
         img = ImageGrab.grab(bbox1)
-        newsize = (500, 700)
+        newsize = (600, 700)
         im1 = img.resize(newsize)
         return im1
     else:

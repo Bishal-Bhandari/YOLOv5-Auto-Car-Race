@@ -19,7 +19,7 @@ speed = 2
 divider = [-720, -600, -480, -360, -240, -120, 0, 120, 240, 360, 480, 600, 720]
 
 # load model
-model = torch.hub.load('ultralytics/yolov5', 'custom', 'yolov5\\runs\\train\\exp6\\weights\\last.pt', force_reload=True)
+model = torch.hub.load('ultralytics/yolov5', 'custom', 'yolov5\\runs\\train\\exp7\\weights\\last.pt', force_reload=True)
 
 # game init and setup
 pygame.init()
@@ -145,7 +145,7 @@ while running:
     #  Capture screen for detection
     screen_grab = DataFeedCap.capture_dynamic()
     result = model(screen_grab)
-    print(result)
+    print(type(result))
     if screen_grab is None:
         print("No Window Found! Please Try Again")
         continue
@@ -158,6 +158,6 @@ while running:
 
 pygame.quit()
 
-# Train YOLOv5s on COCO128 for 3 epochs
+
 # python train.py --img 640 --batch 10 --epochs 50 --data datasrc.yaml --weights yolov5s6.pt --cache
-# python detect.py --weights D:\Project\YOLOgame\yolov5\runs\train\exp6\weights\last.pt --img 640 --conf 0.25 --source image-path
+# python detect.py --weights D:\Project\YOLOgame\yolov5\runs\train\exp7\weights\last.pt --img 640 --conf 0.25 --source image-path
