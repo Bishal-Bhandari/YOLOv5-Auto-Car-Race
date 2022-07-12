@@ -145,7 +145,16 @@ while running:
     #  Capture screen for detection
     screen_grab = DataFeedCap.capture_dynamic()
     result = model(screen_grab)
-    print(type(result))
+    # print(type(result))
+    # result.print()
+    # print(result.xyxy[0])  # im predictions (tensor)
+    x = result.pandas().xyxy[0]  # im predictions (pandas)
+    y = x.name
+    for i in y:
+        if i == "Mine":
+            print("This is my car")
+        else:
+            print("Car alert")
     if screen_grab is None:
         print("No Window Found! Please Try Again")
         continue
