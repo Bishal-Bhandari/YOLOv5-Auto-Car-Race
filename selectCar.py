@@ -1,8 +1,9 @@
-def carSelect(resultVal):
+def carSelect(resultVal, calLoc1, carLoc2):
     x = resultVal.pandas().xyxy[0]  # im predictions (pandas)
     y = x.name
+    print(calLoc1)
     for i in y:
         if i == "Mine":
-            print("This is my car")
+            print(i)
         else:
-            print("Car alert")
+            print(i)

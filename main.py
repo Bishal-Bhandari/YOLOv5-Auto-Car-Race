@@ -103,7 +103,7 @@ while running:
             car2_loc.center = right_lane, -200
         else:
             car2_loc.center = left_lane, -200
-
+    print(car_loc[1], car2_loc[1])
     # event handler
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -144,7 +144,7 @@ while running:
     #  Capture screen for detection
     screen_grab = DataFeedCap.capture_dynamic()
     result = model(screen_grab)
-    from_selectCar = selectCar.carSelect(result)
+    from_selectCar = selectCar.carSelect(result, car_loc, car2_loc)
     if screen_grab is None:
         print("No Window Found! Please Try Again")
         continue
