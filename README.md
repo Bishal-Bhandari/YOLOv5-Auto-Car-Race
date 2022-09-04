@@ -1,4 +1,4 @@
-# YOLOv5-Auto-Car-Race
+# YOLOv5-Auto-Car-Race ML
 Mini game automated with YOLOv5.
 Our car will automatically change the lane if it detects the another vechile on our lane.
 Objectect detection using YOLOv5 with coustom weight.
