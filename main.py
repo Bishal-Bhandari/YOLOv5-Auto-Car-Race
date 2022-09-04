@@ -103,7 +103,6 @@ while running:
             car2_loc.center = right_lane, -200
         else:
             car2_loc.center = left_lane, -200
-    print(car_loc[1], car2_loc[1])
     # event handler
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -134,12 +133,12 @@ while running:
     screen.blit(car2, car2_loc)
 
     # for random car
-    a = 2
-    a *= 1.5
-    rand_car = car2_loc[1] + a
-    if rand_car > height:
-        opp_vec1 = car2load()
-        car2 = opp_vec1
+    # a = 2
+    # a *= 1.5
+    # rand_car = car2_loc[1] + a
+    # if rand_car > height:
+    #     opp_vec1 = car2load()
+    #     car2 = opp_vec1
 
     #  Capture screen for detection
     screen_grab = DataFeedCap.capture_dynamic()
