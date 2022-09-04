@@ -94,7 +94,6 @@ while running:
     if counter == 1024:
         speed += 0.25
         counter = 0
-
     # opposite car logic
     car2_loc[1] += speed
     if car2_loc[1] > height:
@@ -128,9 +127,7 @@ while running:
     if div_move == 800:
         div_move = 1
 
-    # display block
-    screen.blit(car, car_loc)
-    screen.blit(car2, car2_loc)
+
 
     # for random car
     # a = 2
@@ -151,6 +148,10 @@ while running:
     if cv2.waitKey(25) & 0xFF == ord('q'):
         cv2.destroyAllWindows()
         break
+
+    # display block
+    screen.blit(car, car_loc)
+    screen.blit(car2, car2_loc)
 
     pygame.display.update()
 
